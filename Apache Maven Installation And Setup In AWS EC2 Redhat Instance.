@@ -1,0 +1,30 @@
+Apache Maven Installation and Setup in AWS EC2 Redhat instance
+AWS account
+Create security Groip and open required ports 22 etc.
+Create Redhat EC2 T2.medium instance with $GB of RAM
+Attach security group to EC2 instance
+Install java openJDK 1.8+
+
+Install Java JDK 1.8+ and softwares (GIT,Wget and Tree)
+sudo hostnamectlset-hostname maven
+sudo su - ec2-user
+cd /opt
+sudo yum install wget nano tree unzip git-all -y
+sudo yum install java-11-openjdk-devel java-1.8.0-openjdk-devel -y
+java -version
+git --version
+
+Download, extract and install Maven
+sudo wget https://dlcdn.apache.org/maven/maven-3/3.9.0/binaries/apache-maven-3.9.0-bin.zip
+sudo unzip apache-maven-3.9.0-bin.zip
+sudo rm -rf apache-maven-3.9.0-bin.zip
+sudo mv apache-maven-3.9.0/ maven
+
+Set environmental variable for specific user Ex: ec2-user
+Vi ~/.bash_profile  (#and add the following lines below)
+export M2_HOME=/opt/maven
+export PATH=$PATH:$M@_HOME/bin
+
+Refresh the profile file and verify if maven is running
+source ~/.bash_profile
+mvn -version
